@@ -1,0 +1,58 @@
+[notebook]
+dir = "~/arquivos/zk"
+
+[note]
+filename = "{{format-date now 'timestamp'}} {{slug title}}"
+template = "default.md"
+
+[group.fleeting]
+# Directories listed here will automatically use this group when creating notes.
+paths = ["fleeting"]
+
+[group.raw]
+# Directories listed here will automatically use this group when creating notes.
+paths = ["raw"]
+
+[group.literature]
+# Directories listed here will automatically use this group when creating notes.
+paths = ["literature"]
+
+[group.permanent]
+# Directories listed here will automatically use this group when creating notes.
+paths = ["permanent"]
+
+[group.jiu-jitsu]
+# Directories listed here will automatically use this group when creating notes.
+paths = ["jiu-jitsu"]
+
+[group.maybe]
+# Directories listed here will automatically use this group when creating notes.
+paths = ["journal/maybe"]
+
+[group.work]
+# Directories listed here will automatically use this group when creating notes.
+paths = ["work"]
+
+[group.work.note]
+# Directories listed here will automatically use this group when creating notes.
+filename = "{{title}}"
+template = "work.md"
+
+[group.daily]
+# Directories listed here will automatically use this group when creating notes.
+paths = ["journal/daily"]
+
+[group.daily.note]
+# %Y-%m-%d is actually the default format, so you could use {{format-date now}} instead.
+filename = "{{format-date now '%Y-%m-%d'}}"
+extension = "md"
+template = "daily.md"
+
+# EXTERNAL TOOLS
+[tool]
+
+# Default editor used to open notes.
+editor = "nvim"
+
+[alias]
+daily = 'zk new --no-input "$ZK_NOTEBOOK_DIR/journal/daily"'
