@@ -100,7 +100,7 @@ require("lazy").setup({
 		},
 	},
 	{
-		"https://git.sr.ht/~swaits/zellij-nav.nvim",
+		"Peeeaje/zellij-nav.nvim",
 		lazy = true,
 		event = "VeryLazy",
 		keys = {
