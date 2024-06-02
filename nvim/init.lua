@@ -225,7 +225,7 @@ require("lazy").setup({
 	{ "folke/which-key.nvim", config = true },
 })
 
-vim.cmd.colorscheme("tokyonight-storm")
+vim.cmd.colorscheme("tokyonight-day")
 
 vim.keymap.set("x", "<leader>p", [["_dP]])
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")

@@ -8,7 +8,7 @@ keybinds {
         bind "Ctrl g" { SwitchToMode "Normal"; }
     }
     resize {
-        bind "Ctrl n" { SwitchToMode "Normal"; }
+        bind "Ctrl r" { SwitchToMode "Normal"; }
         bind "h" "Left" { Resize "Increase Left"; }
         bind "j" "Down" { Resize "Increase Down"; }
         bind "k" "Up" { Resize "Increase Up"; }
@@ -38,7 +38,7 @@ keybinds {
         bind "c" { SwitchToMode "RenamePane"; PaneNameInput 0;}
     }
     move {
-        bind "Ctrl m" { SwitchToMode "Normal"; }
+        bind "Ctrl n" { SwitchToMode "Normal"; }
         bind "n" "Tab" { MovePane; }
         bind "p" { MovePaneBackwards; }
         bind "h" "Left" { MovePane "Left"; }
@@ -209,7 +209,7 @@ keybinds {
         bind "Ctrl p" { SwitchToMode "Pane"; }
     }
     shared_except "resize" "locked" {
-        bind "Ctrl n" { SwitchToMode "Resize"; }
+        bind "Ctrl r" { SwitchToMode "Resize"; }
     }
     shared_except "scroll" "locked" {
         bind "Ctrl s" { SwitchToMode "Scroll"; }
@@ -221,7 +221,7 @@ keybinds {
         bind "Ctrl t" { SwitchToMode "Tab"; }
     }
     shared_except "move" "locked" {
-        bind "Ctrl m" { SwitchToMode "Move"; }
+        bind "Ctrl n" { SwitchToMode "Move"; }
     }
     shared_except "tmux" "locked" {
         bind "Ctrl b" { SwitchToMode "Tmux"; }
@@ -319,11 +319,25 @@ plugins {
 //     }
 
 // }
-
+themes {
+    tokyonight_day {
+        fg "#3760bf"
+        bg "#c4c8da"
+        black "#e9e9ed"
+        red "#f52a65"
+        green "#587539"
+        yellow "#8c6c3e"
+        blue "#2e7de9"
+        magenta "#9854f1"
+        cyan "#007197"
+        white "#6172b0"
+        orange "#b15c00"
+    }
+}
 // Choose the theme that is specified in the themes section.
 // Default: default
 //
-theme "tokyo-night-storm"
+theme "tokyonight_day"
 
 // The name of the default layout to load on startup
 // Default: "default"
