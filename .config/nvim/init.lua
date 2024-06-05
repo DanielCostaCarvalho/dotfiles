@@ -17,6 +17,8 @@ vim.opt.scrolloff = 4
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 vim.opt.termguicolors = true
+vim.opt.spell = true
+vim.opt.spelllang = "en,pt_br"
 
 --vim.opt.foldmethod = "indent"
 --vim.opt.foldlevel = 1
@@ -70,9 +72,22 @@ require("lazy").setup({
   },
   {
     "nvim-lualine/lualine.nvim",
-    config = true,
+    opts = {
+      sections = {
+        lualine_x = { 'harpoon2', 'encoding', 'fileformat', 'filetype' },
+      }
+    },
     dependencies = {
       "nvim-tree/nvim-web-devicons",
+    },
+  },
+  {
+    "letieu/harpoon-lualine",
+    dependencies = {
+      {
+        "ThePrimeagen/harpoon",
+        branch = "harpoon2",
+      }
     },
   },
 
@@ -524,6 +539,7 @@ wk.register({
       },
       s = { "<cmd>lua vim.lsp.buf.signature_help()<cr>", "[S]ignature help" },
       d = { "<cmd>Telescope diagnostics<cr>", "Show [D]iagnostics" },
+      p = { "<cmd>Telescope spell_suggest<cr>", "Show s[P]ell sugestions" },
     },
     v = {
       name = "+Visual",
@@ -648,6 +664,9 @@ lsp.setup()
 vim.diagnostic.config({
   virtual_lines = true,
   virtual_text = true,
+  float = {
+    source = true
+  }
 })
 vim.api.nvim_create_autocmd("CursorHold", {
   callback = function()
