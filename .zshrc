@@ -1,8 +1,8 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:$HOME/.local/bin/:/usr/local/bin:/home/daniel/snap/flutter/common/flutter/bin:$HOME/.pub-cache/bin:/usr/lib/dart/bin:/home/daniel/.cargo/bin:$HOME/.composer/vendor/bin:$PATH
+export PATH=$HOME/bin:$HOME/.local/bin/:/usr/local/bin:$HOME/snap/flutter/common/flutter/bin:$HOME/.pub-cache/bin:/usr/lib/dart/bin:$HOME/.cargo/bin:$HOME/.composer/vendor/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/daniel/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 export ZK_NOTEBOOK_DIR="$HOME/arquivos/zk"
 
 # Set name of the theme to load --- if set to "random", it will
@@ -150,13 +150,13 @@ SPACESHIP_USER_SHOW=always
 SPACESHIP_CHAR_SYMBOL="❯"
 SPACESHIP_CHAR_SUFFIX=" "
 
-. /home/daniel/.asdf/asdf.sh
+. $HOME/.asdf/asdf.sh
 
-export PNPM_HOME="/home/daniel/.local/share/pnpm"
+export PNPM_HOME="$HOME/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 
 # pnpm
-export PNPM_HOME="/home/daniel/.local/share/pnpm"
+export PNPM_HOME="$HOME/.local/share/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
