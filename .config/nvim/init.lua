@@ -65,6 +65,11 @@ require("lazy").setup({
   },
   "nvim-treesitter/nvim-treesitter",
   {
+    "catppuccin/nvim",
+    name = "catppuccin",
+    priority = 1000
+  },
+  {
     "folke/tokyonight.nvim",
     lazy = false,
     priority = 1000,
@@ -246,8 +251,9 @@ require("lazy").setup({
   { "folke/which-key.nvim",  config = true },
 })
 
-vim.cmd.colorscheme("tokyonight-day")
+vim.cmd.colorscheme("catppuccin-latte")
 
+vim.keymap.set("x", "<leader>x", [["_d]])
 vim.keymap.set("x", "<leader>p", [["_dP]])
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
