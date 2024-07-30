@@ -46,7 +46,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   "nvim-lua/plenary.nvim",
-  { "ahmedkhalf/project.nvim", config = true,   name = "project_nvim" }, -- manage projects
+  { "ahmedkhalf/project.nvim",   config = true,  name = "project_nvim" }, -- manage projects
   "LunarVim/bigfile.nvim",
   -- Telescope
   {
@@ -236,7 +236,7 @@ require("lazy").setup({
   "williamboman/mason.nvim",
   "williamboman/mason-lspconfig.nvim",
   "neovim/nvim-lspconfig",
-  { "VonHeikemen/lsp-zero.nvim",   branch = "v3.x" },
+  { "VonHeikemen/lsp-zero.nvim", branch = "v3.x" },
   {
     "stevearc/conform.nvim",
     opts = {
@@ -248,22 +248,29 @@ require("lazy").setup({
       },
       format_on_save = {
         -- These options will be passed to conform.format()
-        timeout_ms = 2000,
+        timeout_ms = 4000,
         lsp_format = "fallback",
       },
     },
   },
   --
   -- autocomplete
+  "hrsh7th/cmp-nvim-lsp",
+  "hrsh7th/cmp-nvim-lua",
+  "hrsh7th/cmp-buffer",
+  "hrsh7th/cmp-path",
+  "hrsh7th/cmp-cmdline",
+  "hrsh7th/nvim-cmp",
+  "saadparwaiz1/cmp_luasnip",
+  "https://codeberg.org/FelipeLema/cmp-async-path",
   { "windwp/nvim-autopairs", config = true },
-  { 'echasnovski/mini.completion', version = false, config = true },
 
   -- snippets
   "rafamadriz/friendly-snippets",
   "L3MON4D3/LuaSnip",
 
   -- key bindings
-  { "folke/which-key.nvim", config = true },
+  { "folke/which-key.nvim",  config = true },
 
   -- Debugger
   -- {
@@ -690,6 +697,28 @@ require("mason-lspconfig").setup({
   ensure_installed = { "lua_ls", "zk", "biome", "intelephense" },
   handlers = {
     lsp.default_setup,
+  },
+})
+
+local cmp = require("cmp")
+local cmp_format = lsp.cmp_format()
+local cmp_action = lsp.cmp_action()
+require("luasnip.loaders.from_vscode").lazy_load()
+
+cmp.setup({
+  formatting = cmp_format,
+  mapping = cmp.mapping.preset.insert({
+    ["<C-Space>"] = cmp.mapping.complete(),
+    ["<CR>"] = cmp.mapping.confirm({ select = true }),
+  }),
+  completion = {
+    keyword_length = 1,
+  },
+  sources = {
+    { name = "nvim_lsp",   keyword_length = 1 },
+    { name = "luasnip",    keyword_length = 1 },
+    { name = "buffer",     keyword_length = 1 },
+    { name = "async_path", keyword_length = 3 },
   },
 })
 
