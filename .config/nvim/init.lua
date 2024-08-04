@@ -317,7 +317,77 @@ require("lazy").setup({
 		config = function()
 			local dap, dapui = require("dap"), require("dapui")
 
-			dapui.setup()
+			dapui.setup({
+				controls = {
+					element = "repl",
+					enabled = true,
+					icons = {
+						disconnect = "",
+						pause = "",
+						play = "",
+						run_last = "",
+						step_back = "",
+						step_into = "",
+						step_out = "",
+						step_over = "",
+						terminate = "",
+					},
+				},
+				element_mappings = {},
+				expand_lines = true,
+				floating = {
+					border = "single",
+					mappings = {
+						close = { "q", "<Esc>" },
+					},
+				},
+				force_buffers = true,
+				icons = {
+					collapsed = "",
+					current_frame = "",
+					expanded = "",
+				},
+				layouts = {
+					{
+						elements = {
+							{
+								id = "scopes",
+								size = 0.2,
+							},
+							{
+								id = "breakpoints",
+								size = 0.2,
+							},
+							{
+								id = "stacks",
+								size = 0.2,
+							},
+							{
+								id = "watches",
+								size = 0.2,
+							},
+							{
+								id = "repl",
+								size = 0.2,
+							},
+						},
+						position = "right",
+						size = 40,
+					},
+				},
+				mappings = {
+					edit = "e",
+					expand = { "<CR>", "<2-LeftMouse>" },
+					open = "o",
+					remove = "d",
+					repl = "r",
+					toggle = "t",
+				},
+				render = {
+					indent = 1,
+					max_value_lines = 100,
+				},
+			})
 
 			dap.adapters.php = {
 				type = "executable",
@@ -404,6 +474,31 @@ wk.register({
 		["<leader>"] = {
 			"<cmd>Telescope find_files<cr>",
 			"Find File",
+		},
+		d = {
+			name = "+debugger",
+			i = { "<cmd>DapNew<cr>", "[I]nit debug" },
+			b = { "<cmd>DapToggleBreakpoint<cr>", "toggle [B]reakpointg" },
+			c = { "<cmd>DapContinue<cr>", "[C]ontinue debug" },
+			j = { "<cmd>DapStepInto<cr>", "Step Into" },
+			k = { "<cmd>DapStepOut<cr>", "Step Out" },
+			l = { "<cmd>DapStepOver<cr>", "Step Over" },
+			t = { "<cmd>DapTerminate<cr>", "[T]erminate debug" },
+			u = {
+				name = "+ui",
+				o = {
+					function()
+						require("dapui").open()
+					end,
+					"[O]pen debug ui",
+				},
+				c = {
+					function()
+						require("dapui").close()
+					end,
+					"[C]lose debug ui",
+				},
+			},
 		},
 		b = {
 			name = "+buffer",
