@@ -852,7 +852,7 @@ end)
 
 require("mason").setup({})
 require("mason-lspconfig").setup({
-  ensure_installed = { "lua_ls", "zk", "biome", "intelephense" },
+  ensure_installed = { "lua_ls", "zk", "biome", "intelephense", "php-debug-adapter" },
   handlers = {
     lsp.default_setup,
   },
