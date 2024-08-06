@@ -56,3 +56,6 @@ editor = "nvim"
 
 [alias]
 daily = 'zk new --no-input "$ZK_NOTEBOOK_DIR/journal/daily"'
+save = 'cd $ZK_NOTEBOOK_DIR && git add . && git commit -m "$(date +%s)"'
+sync = 'cd $ZK_NOTEBOOK_DIR && git pull origin master && git push'
+ss = 'cd $ZK_NOTEBOOK_DIR && git pull origin master && git add . && git commit -m "$(date +%s)" && git push'
