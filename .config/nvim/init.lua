@@ -280,6 +280,7 @@ require("lazy").setup({
         php = { "pint", "php_cs_fixer" },
         javascript = { { "biome", "eslint_d" } },
         typescript = { { "biome", "eslint_d" } },
+        typescriptreact = { "biome" },
       },
       format_on_save = {
         -- These options will be passed to conform.format()
@@ -852,7 +853,7 @@ end)
 
 require("mason").setup({})
 require("mason-lspconfig").setup({
-  ensure_installed = { "lua_ls", "zk", "biome", "intelephense", "php-debug-adapter" },
+  ensure_installed = { "lua_ls", "zk", "biome", "intelephense" },
   handlers = {
     lsp.default_setup,
   },
