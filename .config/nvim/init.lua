@@ -793,6 +793,12 @@ wk.register({
           end,
           "New [D]aily note",
         },
+        g = {
+          function()
+            require("zk.commands").get("ZkNew")({ dir = "journal/monthly", date = "today" })
+          end,
+          "New monthly [G]oals note",
+        },
         m = {
           function()
             require("zk.commands").get("ZkNew")({ dir = "maybe", title = vim.fn.input("Título: ") })

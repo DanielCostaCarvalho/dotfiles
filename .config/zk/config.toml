@@ -48,6 +48,16 @@ filename = "{{format-date now '%Y-%m-%d'}}"
 extension = "md"
 template = "daily.md"
 
+[group.monthly]
+# Directories listed here will automatically use this group when creating notes.
+paths = ["journal/monthly"]
+
+[group.monthly.note]
+# %Y-%m-%d is actually the default format, so you could use {{format-date now}} instead.
+filename = "{{format-date now '%Y-%m'}}"
+extension = "md"
+template = "monthly.md"
+
 # EXTERNAL TOOLS
 [tool]
 
@@ -56,6 +66,7 @@ editor = "nvim"
 
 [alias]
 daily = 'zk new --no-input "$ZK_NOTEBOOK_DIR/journal/daily"'
+monthly = 'zk new --no-input "$ZK_NOTEBOOK_DIR/journal/monthly"'
 save = 'cd $ZK_NOTEBOOK_DIR && git add . && git commit -m "$(date +%s)"'
 sync = 'cd $ZK_NOTEBOOK_DIR && git pull origin master && git push'
 ss = 'cd $ZK_NOTEBOOK_DIR && git pull origin master && git add . && git commit -m "$(date +%s)" && git push'
