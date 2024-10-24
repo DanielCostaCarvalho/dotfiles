@@ -40,16 +40,17 @@ output HDMI-A-1 resolution 1360x768
 #
 # Example configuration:
 #
-# exec swayidle -w \
-#          timeout 300 'swaylock -f -c 000000' \
-#          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-#          before-sleep 'swaylock -f -c 000000'
+exec swayidle -w \
+         timeout 600 'swaylock -f -c 000000' \
+         before-sleep 'swaylock -f -c 000000'
 #
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
 # resumed. It will also lock your screen before your computer goes to sleep.
 # exec /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1
 exec /usr/bin/lxpolkit
+
+exec swaync
 
 ### Input configuration
 input type:keyboard {
@@ -96,6 +97,8 @@ input type:keyboard {
 
     # Reload the configuration file
     bindsym $mod+Shift+c reload
+
+    bindsym $mod+Shift+n exec swaync-client -t -sw
 
     # Exit sway (logs you out of your Wayland session)
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
