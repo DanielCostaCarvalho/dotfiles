@@ -1,6 +1,7 @@
 vim.opt.guifont = "Jetbrains Mono:h12"
 vim.opt.hidden = true
 vim.opt.number = true
+vim.opt.signcolumn = "yes"
 vim.wo.relativenumber = true
 vim.opt.mouse = "a"
 vim.opt.inccommand = "split"
