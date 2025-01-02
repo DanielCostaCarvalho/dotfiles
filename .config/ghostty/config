@@ -1,2 +1,3 @@
 theme = catppuccin-latte
 window-decoration = false
+confirm-close-surface = false
