@@ -7,5 +7,5 @@ if status is-interactive
 end
 
 starship init fish | source
-~/.local/bin/mise activate fish | source
-source "$HOME/.cargo/env.fish"
+mise activate fish | source
+# source "$HOME/.cargo/env.fish"
