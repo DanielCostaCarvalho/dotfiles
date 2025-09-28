@@ -84,7 +84,19 @@ input type:keyboard {
     bindsym $mod+Shift+q kill
 
     # Shutdown menu
-    bindsym $mod+Shift+p exec wleave
+    # bindsym $mod+Shift+p exec wlogout
+    mode "(E)xit Logout, (L)ock, (R)eboot, (P)oweroff" {
+        bindsym r exec systemctl reboot
+        bindsym e exit
+        bindsym l exec swaylock; mode "default"
+        bindsym p exec systemctl poweroff
+
+        # back to normal: Enter or Escape
+        bindsym Escape mode "default"
+        bindsym Return mode "default"
+    }
+
+    bindsym $mod+Shift+p mode "(E)xit Logout, (L)ock, (R)eboot, (P)oweroff"
 
     # Start your launcher
     bindsym $mod+d exec $menu
@@ -229,7 +241,7 @@ bindsym $mod+r mode "resize"
 #
 # Read `man 5 sway-bar` for more information about this section.
 bar {
-    position bottom
+    position top
 
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.

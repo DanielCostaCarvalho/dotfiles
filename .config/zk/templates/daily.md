@@ -4,3 +4,5 @@
 
 ## Atividades do dia
 [x] Iniciar a anotação diária
+
+## About
