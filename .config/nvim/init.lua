@@ -95,7 +95,7 @@ require("lazy").setup({
     "nvim-lualine/lualine.nvim",
     opts = {
       sections = {
-        lualine_x = { "harpoon2", "encoding", "fileformat", "filetype" },
+        lualine_x = { "searchcount", "harpoon2", "encoding", "fileformat", "filetype" },
       },
     },
     dependencies = {
@@ -997,10 +997,11 @@ cmp.setup({
   formatting = cmp_format,
   mapping = cmp.mapping.preset.insert({
     ["<C-Space>"] = cmp.mapping.complete(),
-    ["<CR>"] = cmp.mapping.confirm({ select = true }),
+    ["<CR>"] = cmp.mapping.confirm({ select = false }),
   }),
   completion = {
     keyword_length = 1,
+    completeopt = 'menuone,noinsert,noselect'
   },
   sources = {
     { name = "nvim_lsp",   keyword_length = 1 },
