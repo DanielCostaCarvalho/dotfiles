@@ -124,6 +124,19 @@ require("lazy").setup({
 
   -- File Navigation
   {
+    "mohseenrm/marko.nvim",
+    priority = 1000,
+    lazy = false,
+    opts = {
+      debug = false -- Set to true for verbose logging
+    }
+  },
+  {
+    "fnune/recall.nvim",
+    version = "*",
+    opts = {},
+  },
+  {
     "ThePrimeagen/harpoon",
     branch = "harpoon2",
     dependencies = "nvim-lua/plenary.nvim",
@@ -521,8 +534,6 @@ vim.cmd.colorscheme("catppuccin-latte")
 vim.keymap.set("x", "<leader>x", [["_d]])
 vim.keymap.set("x", "<leader>p", [["_dP]])
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
 local harpoon = require("harpoon")
 
@@ -808,6 +819,41 @@ wk.register({
         },
       },
     },
+    m = {
+      name = "+Marks",
+      a = {
+        "<cmd>RecallMark<CR>",
+        "[A]dd Mark",
+      },
+      d = {
+        "<cmd>RecallUnmark<CR>",
+        "[D]elete Mark",
+      },
+      m = {
+        "<cmd>RecallToggle<CR>",
+        "Toggle [M]ark",
+      },
+      t = {
+        "<cmd>RecallToggle<CR>",
+        "[T]oggle Mark",
+      },
+      n = {
+        "<cmd>RecallNext<CR>",
+        "Go to [N]ext Mark",
+      },
+      p = {
+        "<cmd>RecallPrevious<CR>",
+        "Go to [P]revious Mark",
+      },
+      c = {
+        "<cmd>RecallClear<CR>",
+        "[C]lear Marks",
+      },
+      l = {
+        "<cmd>Telescope recall<CR>",
+        "[L]ist Marks",
+      },
+    },
     l = {
       name = "+LSP",
       m = { "<cmd>Mason<cr>", "[M]anage LSP" },
@@ -967,6 +1013,7 @@ wk.register({
 
 require("telescope").load_extension("projects")
 require("telescope").load_extension("harpoon")
+require("telescope").load_extension("recall")
 
 local lsp = require("lsp-zero").preset({})
 lsp.extend_lspconfig()

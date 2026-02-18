@@ -141,8 +141,24 @@
 	"clock": {
 		// "timezone": "America/New_York",
 		"format": "{:%H:%M %d/%m/%Y}",
-		"tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-		"format-alt": "{:%d/%m/%Y}"
+		"tooltip-format": "<tt><small>{calendar}</small></tt>",
+		"actions": {
+			"on-click": "mode",
+			"on-scroll-up": "shift_down",
+			"on-scroll-down": "shift_up"
+		},
+		"calendar": {
+			"mode": "month",
+			"mode-mon-col": 3,
+			"on-scroll": 1,
+			"format": {
+				"months": "<span color='#ffead3'><b>{}</b></span>",
+				"days": "<span color='#ecc6d9'><b>{}</b></span>",
+				"weeks": "<span color='#99ffdd'><b>W{}</b></span>",
+				"weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+				"today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+			}
+		}
 	},
 	"cpu": {
 		"format": "{usage}% ",
