@@ -21,8 +21,10 @@ vim.opt.termguicolors = true
 vim.opt.spell = true
 vim.opt.spelllang = "en,pt_br"
 
---vim.opt.foldmethod = "indent"
---vim.opt.foldlevel = 1
+vim.o.foldcolumn = '1' -- '0' is not bad
+vim.o.foldlevel = 99   -- Using ufo provider need a large value, feel free to decrease the value
+vim.o.foldlevelstart = 99
+vim.o.foldenable = true
 
 vim.opt.clipboard = "unnamedplus"
 
@@ -165,6 +167,29 @@ require("lazy").setup({
       { "<c-l>", "<cmd>ZellijNavigateRight<cr>", { silent = true, desc = "navigate right" } },
     },
     opts = {},
+  },
+  {
+    'kevinhwang91/nvim-ufo',
+    dependencies = { 'kevinhwang91/promise-async' },
+    -- opts = {
+    --   provider_selector = function(bufnr, filetype, buftype)
+    --     return { 'treesitter', 'indent' }
+    --   end
+    -- },
+    config = function()
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
+      capabilities.textDocument.foldingRange = {
+        dynamicRegistration = false,
+        lineFoldingOnly = true
+      }
+      local language_servers = vim.lsp.get_clients() -- or list servers manually like {'gopls', 'clangd'}
+      for _, ls in ipairs(language_servers) do
+        require('lspconfig')[ls].setup({
+          capabilities = capabilities
+        })
+      end
+      require('ufo').setup()
+    end
   },
   {
     "nvim-tree/nvim-tree.lua",
@@ -400,18 +425,103 @@ require("lazy").setup({
   },
   --
   -- autocomplete
-  "hrsh7th/cmp-nvim-lsp",
-  "hrsh7th/cmp-nvim-lua",
-  "hrsh7th/cmp-buffer",
-  "hrsh7th/cmp-path",
-  "hrsh7th/cmp-cmdline",
-  "hrsh7th/nvim-cmp",
-  "saadparwaiz1/cmp_luasnip",
-  "https://codeberg.org/FelipeLema/cmp-async-path",
+  {
+    'saghen/blink.cmp',
+    dependencies = { 'rafamadriz/friendly-snippets' },
+    version = '1.*',
+    ---@module 'blink.cmp'
+    ---@type blink.cmp.Config
+    opts = {
+      completion = {
+        documentation = {
+          auto_show = true,
+          auto_show_delay_ms = 500,
+        },
+        list = {
+          selection = {
+            preselect = false,
+            auto_insert = false,
+          },
+        },
+      },
+      keymap = {
+        preset = "default",
+        ["<Enter>"] = { "accept", "fallback" },
+      },
+      draw = {
+        columns = {
+          { "label",     "label_description", gap = 1 },
+          { "kind_icon", "kind" }
+        },
+      },
+      sources = {
+        default = { 'lsp', 'path', 'snippets', 'buffer', 'minuet' },
+        providers = {
+          minuet = {
+            name = 'minuet',
+            module = 'minuet.blink',
+            async = true,
+            -- Should match minuet.config.request_timeout * 1000,
+            -- since minuet.config.request_timeout is in seconds
+            timeout_ms = 3000,
+            score_offset = 50, -- Gives minuet higher priority among suggestions
+          },
+        },
+      },
+    },
+    opts_extend = { "sources.default" }
+  },
   { "windwp/nvim-autopairs", config = true },
+  {
+    'milanglacier/minuet-ai.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    config = function()
+      require('minuet').setup {
+        virtualtext = {
+          auto_trigger_ft = { '*' },
+          keymap = {
+            -- accept whole completion
+            accept = '<A-a>',
+            -- accept one line
+            accept_line = '<Right>',
+            -- accept n lines (prompts for number)
+            -- e.g. "A-z 2 CR" will accept 2 lines
+            accept_n_lines = '<A-z>',
+            -- Cycle to prev completion item, or manually invoke completion
+            prev = '<A-[>',
+            -- Cycle to next completion item, or manually invoke completion
+            next = '<A-]>',
+            dismiss = '<A-e>',
+          },
+        },
+        debounce = 0,
+        blink = {
+          enable_auto_complete = true,
+        },
+        provider = 'openai_fim_compatible',
+        n_completions = 1,
+        after_cursor_filter_length = 20,
+        before_cursor_filter_length = 5,
+        context_window = 512,
+        provider_options = {
+          openai_fim_compatible = {
+            -- For Windows users, TERM may not be present in environment variables.
+            -- Consider using APPDATA instead.
+            api_key = function() return 'sk-xxxx' end,
+            name = 'Ollama',
+            end_point = 'http://localhost:11434/v1/completions',
+            model = "qwen2.5-coder:1.5b",
+            optional = {
+              max_tokens = 56,
+              top_p = 0.9,
+            },
+          },
+        },
+      }
+    end,
+  },
 
   -- snippets
-  "rafamadriz/friendly-snippets",
   "L3MON4D3/LuaSnip",
 
   -- key bindings
@@ -1032,29 +1142,6 @@ require("mason-lspconfig").setup({
   ensure_installed = { "lua_ls", "zk", "biome", "intelephense" },
   handlers = {
     lsp.default_setup,
-  },
-})
-
-local cmp = require("cmp")
-local cmp_format = lsp.cmp_format()
-local cmp_action = lsp.cmp_action()
-require("luasnip.loaders.from_vscode").lazy_load()
-
-cmp.setup({
-  formatting = cmp_format,
-  mapping = cmp.mapping.preset.insert({
-    ["<C-Space>"] = cmp.mapping.complete(),
-    ["<CR>"] = cmp.mapping.confirm({ select = false }),
-  }),
-  completion = {
-    keyword_length = 1,
-    completeopt = 'menuone,noinsert,noselect'
-  },
-  sources = {
-    { name = "nvim_lsp",   keyword_length = 1 },
-    { name = "luasnip",    keyword_length = 1 },
-    { name = "buffer",     keyword_length = 1 },
-    { name = "async_path", keyword_length = 3 },
   },
 })
 
